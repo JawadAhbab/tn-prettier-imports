@@ -1,0 +1,7 @@
+{
+  "folders": [
+    { "name": "tn-prettier-imports", "path": "../" },
+    { "name": "Src", "path": "../src" },
+    { "name": "Example", "path": "../example" }
+  ]
+}
