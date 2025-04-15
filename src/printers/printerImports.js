@@ -1,5 +1,6 @@
 module.exports = value => {
-  if (value[0] !== 'import') return false
+  if (value[0] !== 'import') return null
+
   const line = []
   value.flat(Infinity).forEach(vi => {
     if (typeof vi === 'string') return line.push(vi)
@@ -14,5 +15,6 @@ module.exports = value => {
       line.push(' ')
     })
   })
+
   return line
 }
