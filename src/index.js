@@ -8,7 +8,7 @@ module.exports = {
       ...estree.printers.estree,
       print: (path, options, print) => {
         const value = estree.printers.estree.print(path, options, print)
-        if (value[0] !== 'import') return value 
+        if (value[0] !== 'import') return value
 
         const line = []
         value.flat(Infinity).forEach(vi => {
