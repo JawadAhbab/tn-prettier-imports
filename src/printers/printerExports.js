@@ -1,9 +1,15 @@
 module.exports = value => {
-  const fv = Object.values(value).filter(i => i)
-  if (fv[0] !== 'export') return null
+  let firstkey = ''
+  let idx = 0
+  while (firstkey === '') firstkey = value[idx++]
+  if (firstkey !== 'export') return null
+
+  const fv = [value].flat(Infinity)
+  const hasfrom = fv.some(i => typeof i === 'string' && i.trim() === 'from')
+  if (!hasfrom) return null
 
   const line = []
-  value.flat(Infinity).forEach(vi => {
+  fv.forEach(vi => {
     if (typeof vi === 'string') return line.push(vi)
     if (vi.type !== 'group') return line.push(vi)
     vi.contents.flat(Infinity).forEach(ci => {
