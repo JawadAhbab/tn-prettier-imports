@@ -1,6 +1,6 @@
 {
   "name": "tn-prettier-imports",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Prettier plugin that keeps import and export statements on a single line.",
   "keywords": [
     "prettier",
