@@ -132,6 +132,32 @@ test('collapses in a .js file (babel parser)', async () => {
   assert.ok(isOneLine(out), out)
 })
 
+test('non-collapsible code is byte-identical to vanilla Prettier (regression: dropped print args)', async () => {
+  // An arrow body that is a conditional returning JSX. Prettier prints these via
+  // the printer's 4th `args` argument; if the plugin drops it, the closing parens
+  // collapse (`))}`) and the output diverges from vanilla even though nothing here
+  // is an import/export the plugin should touch.
+  const code = `export default function Highlight({ parts }) {
+  return (
+    <>
+      {parts.map((part, index) =>
+        part.startsWith('*') ? (
+          <span key={index} className="hl">
+            {part.slice(1, -1)}
+          </span>
+        ) : (
+          <span key={index}>{part}</span>
+        )
+      )}
+    </>
+  )
+}
+`
+  const withPlugin = await format(code)
+  const vanilla = await prettier.format(code, { parser: 'typescript', printWidth: 100, semi: false, singleQuote: true })
+  assert.equal(withPlugin, vanilla)
+})
+
 test('collapses imports in a .tsx file and leaves JSX intact', async () => {
   const code = `import { aaaaaaaaaa, bbbbbbbbbb, cccccccccc, dddddddddd, eeeeeeeeee, ffffffffff, gggggggggg, hhhhhhhhhh } from './module-path'
 

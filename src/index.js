@@ -20,8 +20,12 @@ const basePrinter = estree.printers.estree
  * Doc with its flattened, single-line form. Every other node is returned
  * unchanged, so the rest of the file formats exactly as vanilla Prettier would.
  */
-const print = (path, options, print) => {
-  const doc = basePrinter.print(path, options, print)
+const print = (path, options, print, args) => {
+  // Forward `args` (Prettier 3's 4th printer argument). The base estree printer
+  // relies on it to format certain nested constructs — arrow-function bodies,
+  // conditional expressions, JSX children, member chains. Dropping it makes those
+  // re-group differently, corrupting output for nodes we don't even collapse.
+  const doc = basePrinter.print(path, options, print, args)
 
   const node = path.node !== undefined ? path.node : path.getValue()
   if (!isCollapsible(node)) return doc
