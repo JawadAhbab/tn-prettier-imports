@@ -1,10 +1,35 @@
 {
   "name": "tn-prettier-imports",
-  "description": " ",
   "version": "2.1.0",
-  "main": "./src/index.js",
+  "description": "Prettier plugin that keeps import and export statements on a single line.",
+  "keywords": [
+    "prettier",
+    "prettier-plugin",
+    "imports",
+    "exports",
+    "single-line",
+    "formatting"
+  ],
   "license": "MIT",
-  "dependencies": {
+  "author": "Jawad Ahbab",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JawadAhbab/tn-prettier-imports.git"
+  },
+  "main": "./src/index.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "peerDependencies": {
+    "prettier": "^3.0.0"
+  },
+  "devDependencies": {
     "prettier": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
